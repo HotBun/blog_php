@@ -1,11 +1,5 @@
 <?php
-
-$connection = mysqli_connect(
-		$config['db']['server'],
-		$config['db']['username'],
-		$config['db']['password'],
-		$config['db']['name']
-	);
+$connection = mysqli_connect('127.0.0.1', 'root', '','users');//соездинение с базой данных (`сервер`, `имя пользователя`, `пароль`, `название базы данных`)
 
 if ($connection == false) {
 	echo "Не удалось подключиться к базе данных<br/>";
