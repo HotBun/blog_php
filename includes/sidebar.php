@@ -10,60 +10,42 @@
               <div class="block__content">
                 <div class="articles articles__vertical">
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
+                   <?php 
+                  $articles = mysqli_query($connection, "SELECT * FROM `articles` ORDER BY `views` DESC LIMIT 5");
+                  ?>
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
+                  <?php
+                  while( $art = mysqli_fetch_assoc($articles)){
+                    ?>
+                    <article class="article">
+                      <div class="article__image" style="background-image: url(/static/img/<?php echo $art['images']; ?>);"></div>
+                      <div class="article__info">
+                        <a href="article.php?categories=<?php echo $art['id']; ?>"><?php echo $art['title']; ?></a>
+                        <div class="article__info__meta">
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
+                          <?php 
+                          $art_cat = false;
+                          foreach( $categories as $cat){
+                            if($cat['id'] == $art['categories_id']){
+                              $art_cat = $cat;
+                              break;
+                            }
+                          }
+                          ?>
+                          <small>
+                            Категория: <a href="/articles.php?categories=<?php echo $art_cat['id']; ?>">
+                            <?php echo $art_cat['title']; ?>
+                          </a></small>
+                        </div>
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
+                        <div class="article__info__preview"><?php echo mb_substr(strip_tags($art['text']), 0, 100, 'utf-8') . ' ...'; ?></div>
                       </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
+                    </article>
+
+                    <?php
+                  }
+                  ?>
 
                 </div>
               </div>
@@ -74,62 +56,25 @@
               <div class="block__content">
                 <div class="articles articles__vertical">
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Jonny Flame</a>
-                      <div class="article__info__meta">
-                        <small><a href="#">Название статьи #1</a></small>
-                      </div>
-                      <div class="article__info__preview">Бла бла бла бла бла бла бла, и думаю еще что бла бла бла бла бла бла бла ...</div>
-                    </div>
-                  </article>
+                  <?php 
+                  $comments = mysqli_query($connection, "SELECT * FROM `comments` ORDER BY `id` DESC LIMIT 5");
+                  ?>
 
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Jonny Flame</a>
-                      <div class="article__info__meta">
-                        <small><a href="#">Название статьи #1</a></small>
+                  <?php
+                  while( $comment = mysqli_fetch_assoc($comments)){
+                    ?>
+                    <article class="article">
+                      <div class="article__image" style="background-image: url(https://gravatar.com/avatar/<?php echo md5($comment['email']); ?>?s=80);"></div>
+                      <div class="article__info">
+                        <a href="article.php?id=<?php echo $comment['articles_id']; ?>"><?php echo $comment['autor'] ?></a>
+                           <div class="article__info__meta"></div>
+                        <div class="article__info__preview"><?php echo mb_substr(strip_tags($comment['text']), 0, 100, 'utf-8') . ' ...'; ?></div>
                       </div>
-                      <div class="article__info__preview">Бла бла бла бла бла бла бла, и думаю еще что бла бла бла бла бла бла бла ...</div>
-                    </div>
-                  </article>
+                    </article>
 
-                  <article class="article">
-                  
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Jonny Flame</a>
-                      <div class="article__info__meta">
-                        <small><a href="#">Название статьи #1</a></small>
-                      </div>
-                      <div class="article__info__preview">Бла бла бла бла бла бла бла, и думаю еще что бла бла бла бла бла бла бла ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Jonny Flame</a>
-                      <div class="article__info__meta">
-                        <small><a href="#">Название статьи #1</a></small>
-                      </div>
-                      <div class="article__info__preview">Бла бла бла бла бла бла бла, и думаю еще что бла бла бла бла бла бла бла ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image" style="background-image: url(/media/images/post-image.jpg);"></div>
-                    <div class="article__info">
-                      <a href="#">Jonny Flame</a>
-                      <div class="article__info__meta">
-
-                        <small><a href="#">Название статьи #1</a></small>
-                      </div>
-                      <div class="article__info__preview">Бла бла бла бла бла бла бла, и думаю еще что бла бла бла бла бла бла бла ...</div>
-                    </div>
-                  </article>
+                    <?php
+                  }
+                  ?>
 
                 </div>
               </div>

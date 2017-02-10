@@ -46,6 +46,93 @@ require "includes/config.php";
                         <a href="article.php?categories=<?php echo $art['id']; ?>"><?php echo $art['title']; ?></a>
                         <div class="article__info__meta">
 
+                          <?php 
+                          $art_cat = false;
+                          foreach( $categories as $cat){
+                            if($cat['id'] == $art['categories_id']){
+                              $art_cat = $cat;
+                              break;
+                            }
+                          }
+                          ?>
+                          <small>
+                            Категория: <a href="/articles.php?categories=<?php echo $art_cat['id']; ?>">
+                            <?php echo $art_cat['title']; ?>
+                          </a></small>
+                        </div>
+
+
+                        <div class="article__info__preview"><?php echo mb_substr(strip_tags($art['text']), 0, 100, 'utf-8') . ' ...'; ?></div>
+                      </div>
+                    </article>
+
+                    <?php
+                  }
+                  ?>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="block">
+              <a href="article.php?categories=3">Все записи</a>
+              <h3>HTML/CSS [Последние записи]</h3>
+              <div class="block__content">
+                <div class="articles articles__horizontal">
+                   <?php 
+                  $articles = mysqli_query($connection, "SELECT * FROM `articles` WHERE `categories_id` = 3 ORDER BY `id` DESC LIMIT 10");
+       
+                  while( $art = mysqli_fetch_assoc($articles)){
+                    ?>
+                    <article class="article">
+                      <div class="article__image" style="background-image: url(/static/img/<?php echo $art['images']; ?>);"></div>
+                      <div class="article__info">
+                        <a href="article.php?categories=<?php echo $art['id']; ?>"><?php echo $art['title']; ?></a>
+                        <div class="article__info__meta">
+
+                          <?php 
+                          $art_cat = false;
+                          foreach( $categories as $cat){
+                            if($cat['id'] == $art['categories_id']){
+                              $art_cat = $cat;
+                              break;
+                            }
+                          }
+                          ?>
+                          <small>
+                            Категория: <a href="/articles.php?categories=<?php echo $art_cat['id']; ?>">
+                            <?php echo $art_cat['title']; ?>
+                          </a></small>
+                        </div>
+
+
+                        <div class="article__info__preview"><?php echo mb_substr(strip_tags($art['text']), 0, 100, 'utf-8') . ' ...'; ?></div>
+                      </div>
+                    </article>
+
+                    <?php
+                  }
+                  ?>
+                </div>
+              </div>
+            </div>
+
+            <div class="block">
+              <a href="article.php?categories=5">Все записи</a>
+              <h3>SQL [Последние записи]</h3>
+              <div class="block__content">
+                <div class="articles articles__horizontal">
+
+                  <?php 
+                  $articles = mysqli_query($connection, "SELECT * FROM `articles` WHERE `categories_id` = 5 ORDER BY `id` DESC LIMIT 10");
+       
+                  while( $art = mysqli_fetch_assoc($articles)){
+                    ?>
+                    <article class="article">
+                      <div class="article__image" style="background-image: url(/static/img/<?php echo $art['images']; ?>);"></div>
+                      <div class="article__info">
+                        <a href="article.php?categories=<?php echo $art['id']; ?>"><?php echo $art['title']; ?></a>
+                        <div class="article__info__meta">
 
                           <?php 
                           $art_cat = false;
@@ -71,116 +158,6 @@ require "includes/config.php";
                   }
                   ?>
 
-                  
-
-                </div>
-              </div>
-            </div>
-
-            <div class="block">
-              <a href="#">Все записи</a>
-              <h3>Безопасность [Новейшее]</h3>
-              <div class="block__content">
-                <div class="articles articles__horizontal">
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи #2</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Lifestyle</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи #3</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи #4</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Lifestyle</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="block">
-              <a href="#">Все записи</a>
-              <h3>Программирование [Новейшее]</h3>
-              <div class="block__content">
-                <div class="articles articles__horizontal">
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи #2</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Lifestyle</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи #3</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Программирование</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
-                  <article class="article">
-                    <div class="article__image"></div>
-                    <div class="article__info">
-                      <a href="#">Название статьи #4</a>
-                      <div class="article__info__meta">
-                        <small>Категория: <a href="#">Lifestyle</a></small>
-                      </div>
-                      <div class="article__info__preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ...</div>
-                    </div>
-                  </article>
-
                 </div>
               </div>
             </div>
@@ -192,21 +169,7 @@ require "includes/config.php";
      </div>
    </div>
 
-   <footer id="footer">
-    <div class="container">
-      <div class="footer__logo">
-        <h1><?php echo $config['title'];  ?></h1>
-      </div>
-      <nav class="footer__menu">
-        <ul>
-          <li><a href="#">Главная</a></li>
-          <li><a href="#">Обо мне</a></li>
-          <li><a href="#">Я Вконтакте</a></li>
-          <li><a href="#">Правообладателям</a></li>
-        </ul>
-      </nav>
-    </div>
-  </footer>
+  <?php include "/includes/footer.php"; ?>
 
 </div>
 
